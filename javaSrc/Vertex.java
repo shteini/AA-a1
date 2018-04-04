@@ -1,5 +1,5 @@
 import java.util.*;
-public class Verticie
+public class Vertex
 {
   String label;
 
@@ -7,14 +7,14 @@ public class Verticie
   // With this implementation, each vertex knows which vertices it
   // has a connection with.
   */
-  ArrayList<String> connections;
+  ArrayList<> connections;
 
-  public Verticie()
+  public Vertex()
   {
     this.label = "NoLabel";
     this.connections = new ArrayList<String>();
   }
-  public Verticie(String label)
+  public Vertex(String label)
   {
     this.label = label;
     this.connections = new ArrayList<String>();
@@ -30,8 +30,8 @@ public class Verticie
     return this.connections;
   }
 
-  public void addEdge(String connectedVerticieLabel)
+  public void addEdge(String connectedvertexLabel)
   {
-    connections.add(connectedVerticieLabel);
+    connections.add(connectedvertexLabel);
   }
 }

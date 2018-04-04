@@ -11,18 +11,18 @@ import java.util.*;
 */
 public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 {
-  ArrayList<Verticie> vertices;
+  ArrayList<Vertex> vertices;
 
 /**
  * Contructs empty graph.
  */
   public AdjMatrix() {
-    vertices = new ArrayList<Verticie>();
+    vertices = new ArrayList<Vertex>();
   } // end of AdjMatrix()
 
 
   public void addVertex(T vertLabel) {
-    Verticie v = new Verticie(vertLabel);
+    Vertex v = new Vertex(vertLabel);
     vertices.add(v);
   } // end of addVertex()
 
@@ -34,10 +34,10 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
     if(vertices.contains(srcLabel) && vertices.contains(tarLabel))
     {
       // temp variables to store the vertices to have an edge added.
-      Verticie source = new Verticie();
-      Verticie target = new Verticie();
+      Vertex source = new Vertex();
+      Vertex target = new Vertex();
       // Loop through vertices and assign the temp variables
-      for(Verticie v: vertices)
+      for(Vertex v: vertices)
       {
         //retrieve the source and target vertex's
         if(v.getLabel.equals(srcLabel))
@@ -82,7 +82,7 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
 
   public void printVertices(PrintWriter os) {
-      for(Verticie v: vertices)
+      for(Vertex v: vertices)
       {
         System.out.print(v + " ");
       }
