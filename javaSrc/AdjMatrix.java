@@ -33,7 +33,7 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
     //If there is already at least one vertex
     if(graphSize > 0)
     {
-      //Loop through old array and add copy old edges to new temp array
+      //Loop through old array and copy old edges to new temp array
       for(int i = 0; i < graph.length; i++)
       {
         for(int j = 0; j < graph[i].length; j++)
@@ -54,26 +54,13 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
     int graphSize = graph.length;
     int[][] temp = new int[graphSize - 1][graphSize - 1];
     int vertIndex = vertexLabels.indexOf(vertLabel);
-    System.out.println(vertIndex);
       //Loop through old array and add copy old values to new temp array
       //CASE For when vertex is the last one in the array.
       for(int i = 0; i < graph.length; i++)
       {
         for(int j = 0; j < graph[i].length; j++)
         {
-          //If the vertex we are looking at is not equal to the one we wish to
-          //remove, we add it to temp, if it is the one we want to remove, the
-          //for loop skips it and it is not added to the temp array
-          //
-          if(j == graph.length-1)
-          {
-           temp[i][j-1] = graph[i][j];
-          }
-          else if(i == graph.length-1)
-          {
-           temp[i-1][j] = graph[i][j];
-          }
-          else if(i != vertIndex && j != vertIndex)
+          if(i != vertIndex && j != vertIndex)
           {
             temp[i][j] = graph[i][j];
           }
@@ -134,13 +121,19 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
 
   public void printEdges(PrintWriter os) {
+    os = new PrintWriter(System.out, true);
+
     for(int i = 0; i < graph.length; i++)
       {
         for(int j = 0; j < graph[i].length; j++)
         {
-          System.out.print(graph[i][j]);
+          if(graph[i][j] == 1)
+          {
+            String vertexOne = vertexLabels.get(i);
+            String vertexTwo = vertexLabels.get(j);
+            os.println(vertexOne + " " + vertexTwo);
+          }
         }
-        System.out.println();
       }
   } // end of printEdges()
 
