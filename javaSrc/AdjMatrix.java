@@ -11,19 +11,45 @@ import java.util.*;
 */
 public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 {
-  ArrayList<Vertex> vertices;
+  String[][] graph;
+  String[] vertexLabels;
 
 /**
  * Contructs empty graph.
  */
   public AdjMatrix() {
-    vertices = new ArrayList<Vertex>();
+    graph = new String[0][0];
   } // end of AdjMatrix()
 
 
   public void addVertex(T vertLabel) {
-    Vertex v = new Vertex(vertLabel);
-    vertices.add(v);
+    int graphSize = graph.length;
+    String[][] temp = new String[graphSize + 1][graphSize + 1];
+
+    //If there is already at least one vertex
+    if(graphSize >= 1)
+    {
+
+      //Loop through old array and add copy old values to new temp array
+      for(int i = 0; i < graph.length; i++)
+      {
+        for(int j = 0; j < graph[i].length; j++)
+        {
+          temp[i][j] = graph[i][j];
+        }
+      }
+
+      //Add the new vertex
+      temp[temp.length-1][temp.length-1] = vertLabel.toString();
+      //With temp updated with the new vertex now we can save the graph
+      graph = temp;
+    }
+    else
+    {
+      // No Vertices in the array
+      temp[temp.length-1][temp.length-1] = vertLabel.toString();
+      graph = temp;
+    }
   } // end of addVertex()
 
 
@@ -31,34 +57,17 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
     // Check that both vertices are in the list as you can't add an edge if
     // either of them does not exist
-    if(vertices.contains(srcLabel) && vertices.contains(tarLabel))
-    {
+
       // temp variables to store the vertices to have an edge added.
-      Vertex source = new Vertex();
-      Vertex target = new Vertex();
+
       // Loop through vertices and assign the temp variables
-      for(Vertex v: vertices)
-      {
+      //
         //retrieve the source and target vertex's
-        if(v.getLabel.equals(srcLabel))
-        {
-          source = v;
-        }
-        else if(v.getLabel.equals(tarLabel))
-        {
-          target = v;
-        }
-      }
+
       // add a connection to both the srclabel vertex
       // and the tarlabel vertex as they both have their own list of connections
       // e.g. B connected to C -> CB = 1 & BC = 1 where(1) means they are connected
-      source.addEdge(target.getLabel());
-      target.addEdge(source.getLabel());
-    }
-    else
-    {
-      System.out.print("One of your vertices does not exist in the list");
-    }
+
   } // end of addEdge()
 
 
@@ -72,7 +81,28 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
 
   public void removeVertex(T vertLabel) {
-      // Implement me!
+    int graphSize = graph.length;
+    String[][] temp = new String[graphSize - 1][graphSize - 1];
+
+    //If there is already at least one vertex
+
+      //Loop through old array and add copy old values to new temp array
+      for(int i = 0; i < graph.length; i++)
+      {
+        for(int j = 0; j < graph[i].length; j++)
+        {
+          //If the vertex we are looking at is not equal to the one we wish to
+          //remove, we add it to temp, if it is the one we want to remove, the
+          //for loop skips it and it is not added to the temp array
+          if(!(graph[i][j].equals(vertLabel)))
+          {
+            temp[i][j] = graph[i][j];
+          }
+        }
+      }
+      //With temp updated with the removed vertex now we can save the graph
+      graph = temp;
+
   } // end of removeVertex()
 
 
@@ -82,9 +112,12 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
 
   public void printVertices(PrintWriter os) {
-      for(Vertex v: vertices)
+      for(int i = 0; i < graph.length; i++)
       {
-        System.out.print(v + " ");
+        for(int j = 0; j < graph[i].length; j++)
+        {
+          os.print(graph[i][j]);
+        }
       }
   } // end of printVertices()
 
