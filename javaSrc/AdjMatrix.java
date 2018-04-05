@@ -52,8 +52,8 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
   public void removeVertex(T vertLabel) {
     int graphSize = graph.length;
-    int[][] temp = new int[graphSize - 1][graphSize - 1];
-    vertIndex = vertexLabels.indexOf(vertLabel);
+    int[][] temp = new int[graphSize-1][graphSize-1];
+    int vertIndex = vertexLabels.indexOf(vertLabel);
     //If there is already at least one vertex
 
       //Loop through old array and add copy old values to new temp array
@@ -84,8 +84,8 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
     if(vertexLabels.contains(srcLabel) && vertexLabels.contains(tarLabel))
     {
       //Get index of labels in array
-      srcIndex = vertexLabels.indexOf(srcLabel.toString());
-      tarIndex = vertexLabels.indexOf(tarlabel.toString());
+      int srcIndex = vertexLabels.indexOf(srcLabel.toString());
+      int tarIndex = vertexLabels.indexOf(tarLabel.toString());
       graph[srcIndex][tarIndex] = 1;
       graph[tarIndex][srcIndex] = 1;
     }
