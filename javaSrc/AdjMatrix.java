@@ -51,37 +51,35 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   } // end of addVertex()
 
   public void removeVertex(T vertLabel) {
-    int graphSize = graph.length;
-    int[][] temp = new int[graphSize - 1][graphSize - 1];
-    int vertIndex = vertexLabels.indexOf(vertLabel);
+
+    if(vertexLabels.contains(vertLabel))
+    {
+      int graphSize = graph.length;
+      int[][] temp = new int[graphSize - 1][graphSize - 1];
+      int vertIndex = vertexLabels.indexOf(vertLabel);
       //Loop through old array and add copy old values to new temp array
       //CASE For when vertex is the last one in the array.
-      for(int i = 0; i < graph.length; i++)
+      removeEdgesForVertex(vertIndex);
+      for(int i = 0; i < graph.length-1; i++)
       {
-        for(int j = 0; j < graph[i].length; j++)
+        for(int j = 0; j < graph[i].length-1; j++)
         {
-          if(i != vertIndex && j != vertIndex)
+          if(j == vertIndex)
           {
-            temp[i][j] = graph[i][j];
+            temp[i][j] = graph[i][j+1];
+            j++;
           }
-
+          else if(i == vertIndex)
+          {
+            temp[i][j] = graph[i+1][j];
+          }
         }
       }
-      // //CASE WHEN VERTEX IS AT THE START
-      // else if(true)
-      // {
-
-      // }
-      //  //CASE WHEN VERTEX IS SOMEWHERE IN THE MIDDLE
-      // else if(true)
-      // {
-
-      // }
       //remove from the vertexLabel list
       vertexLabels.remove(vertLabel);
       //With temp updated with the removed vertex row and column now we can save the graph
       graph = temp;
-
+    }
   } // end of removeVertex()
 
   public void addEdge(T srcLabel, T tarLabel) {
@@ -144,5 +142,19 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
       // if we reach this point, source and target are disconnected
       return disconnectedDist;
   } // end of shortestPathDistance()
+
+  public void removeEdgesForVertex(int vertIndex)
+  {
+    for(int i = 0; i < graph.length; i++)
+    {
+      for(int j = 0; j < graph[i].length; j++)
+      {
+        if(i == vertIndex || j == vertIndex)
+        {
+          graph[i][j] = 0;
+        }
+      }
+    }
+  }
 
 } // end of class AdjMatrix
