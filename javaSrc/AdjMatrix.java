@@ -51,29 +51,7 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   } // end of addVertex()
 
   public void removeVertex(T vertLabel) {
-    int graphSize = graph.length;
-    int[][] temp = new int[graphSize-1][graphSize-1];
-    int vertIndex = vertexLabels.indexOf(vertLabel);
-    //If there is already at least one vertex
-
-      //Loop through old array and add copy old values to new temp array
-      for(int i = 0; i < graph.length; i++)
-      {
-        for(int j = 0; j < graph[i].length; j++)
-        {
-          //If the vertex we are looking at is not equal to the one we wish to
-          //remove, we add it to temp, if it is the one we want to remove, the
-          //for loop skips it and it is not added to the temp array
-          if(i != vertIndex && j != vertIndex)
-          {
-            temp[i][j] = graph[i][j];
-          }
-        }
-      }
-      //remove from the vertexLabel list
-      vertexLabels.remove(vertLabel);
-      //With temp updated with the removed vertex row and column now we can save the graph
-      graph = temp;
+ 
 
   } // end of removeVertex()
 
@@ -108,13 +86,20 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   public void printVertices(PrintWriter os) {
       for(String vertex: vertexLabels)
       {
-        os.print(vertex + " ");
+        System.out.print(vertex + " ");
       }
   } // end of printVertices()
 
 
   public void printEdges(PrintWriter os) {
-      // Implement me!
+    for(int i = 0; i < graph.length; i++)
+      {
+        for(int j = 0; j < graph[i].length; j++)
+        {
+          System.out.print(graph[i][j]);
+        }
+        System.out.println();
+      }
   } // end of printEdges()
 
 
