@@ -100,6 +100,17 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   } // end of addEdge()
 
   public void removeEdge(T srcLabel, T tarLabel) {
+
+      //check both requested vertices are in the list
+      if(vertexLabels.contains(srcLabel) && vertexLabels.contains(tarLabel))
+      {
+        //get index of labels in the array
+        int srcIndex = vertexLabels.indexOf(srcLabel.toString());
+        int tarIndex = vertexLabels.indexOf(tarLabel.toString());
+        graph[srcIndex][tarIndex] = 0;
+        graph[tarIndex][srcIndex] = 0;
+        //go over with Sam
+      }
       // Implement me!
   } // end of removeEdges()
 
@@ -107,6 +118,11 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   public ArrayList<T> neighbours(T vertLabel) {
       ArrayList<T> neighbours = new ArrayList<T>();
 
+      if(vertexLabels.contains(vertLabel.toString()))
+      {
+        //if vertlabel is part of an edge
+        //neighbours.add(vertLabel);
+      }
       // Implement me!
 
       return neighbours;
