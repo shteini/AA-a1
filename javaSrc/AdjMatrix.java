@@ -60,6 +60,7 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
   public void removeVertex(T vertLabel) {
 
+
     if(vertexLabels.contains(vertLabel))
     {
       int graphSize = graph.length;
@@ -151,6 +152,11 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   public ArrayList<T> neighbours(T vertLabel) {
       ArrayList<T> neighbours = new ArrayList<T>();
 
+      if(vertexLabels.contains(vertLabel.toString()))
+      {
+        //if vertlabel is part of an edge
+        //neighbours.add(vertLabel);
+      }
       // Implement me!
 
       return neighbours;
