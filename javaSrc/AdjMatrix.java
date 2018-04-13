@@ -25,28 +25,36 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
 
   public void addVertex(T vertLabel) {
-    vertexLabels.add(vertLabel.toString());
-    int graphSize = graph.length;
-
-    //Increase the size of the array by 1
-    int[][] temp = new int[graphSize + 1][graphSize + 1];
-    //If there is already at least one vertex
-    if(graphSize > 0)
+    if(!vertexLabels.contains(vertLabel.toString()))
     {
-      //Loop through old array and copy old edges to new temp array
-      for(int i = 0; i < graph.length; i++)
+
+      vertexLabels.add(vertLabel.toString());
+      int graphSize = graph.length;
+
+      //Increase the size of the array by 1
+      int[][] temp = new int[graphSize + 1][graphSize + 1];
+      //If there is already at least one vertex
+      if(graphSize > 0)
       {
-        for(int j = 0; j < graph[i].length; j++)
+        //Loop through old array and copy old edges to new temp array
+        for(int i = 0; i < graph.length; i++)
         {
-          temp[i][j] = graph[i][j];
+          for(int j = 0; j < graph[i].length; j++)
+          {
+            temp[i][j] = graph[i][j];
+          }
         }
+        graph = temp;
       }
-      graph = temp;
+      else
+      {
+        // No Vertices in the array
+        graph = temp;
+      }
     }
     else
     {
-      // No Vertices in the array
-      graph = temp;
+      System.out.println("Vertex already exists");
     }
   } // end of addVertex()
 
@@ -57,31 +65,62 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
     {
       int graphSize = graph.length;
       int[][] temp = new int[graphSize - 1][graphSize - 1];
+
+      //The index of the vertex we are trying to delete
       int vertIndex = vertexLabels.indexOf(vertLabel);
+
+      //remove any edges that the vertex being deleted has with other vertices
+      //otherwise remaining vertices that had an edge with the deleted vertex
+      //will show unexpected edges
+
       //Loop through old array and add copy old values to new temp array
-      //CASE For when vertex is the last one in the array.
-      removeEdgesForVertex(vertIndex);
-      for(int i = 0; i < graph.length-1; i++)
+      //Only if the row or column we are in is != to the row or column we are
+      //trying to delete
+      int tempI = 0;
+      int tempJ = 0;
+      for(int i = 0; i < graph.length; i++)
       {
-        for(int j = 0; j < graph[i].length-1; j++)
+        tempJ = 0;
+        if(i == vertIndex && i == graph.length-1)
         {
+          break;
+        }
+        else if(i == vertIndex && i != graph.length-1)
+        {
+          tempI = i;
+          continue;
+
+        }
+        for(int j = 0; j < graph[i].length; j++)
+        {
+          //If the current column is the column we want to delete,
+          //save the current column position in temp as the next one in graph
+          //i.e. skip over it. We then increment j to the next position manually,
+          //this next position we have already accessed in the previous line.
+          //the for loop also increments j so we get to the next position
           if(j == vertIndex)
           {
-            temp[i][j] = graph[i][j+1];
-            j++;
+            tempJ = j;
+            continue;
           }
-          else if(i == vertIndex)
+          else
           {
-            temp[i][j] = graph[i+1][j];
+            temp[tempI][tempJ] = graph[i][j];
+            tempJ++;
           }
+
         }
+        tempI++;
       }
       //remove from the vertexLabel list
       vertexLabels.remove(vertLabel);
       //With temp updated with the removed vertex row and column now we can save the graph
       graph = temp;
     }
-
+    else
+    {
+      System.out.println("Vertex Does Not Exist");
+    }
   } // end of removeVertex()
 
   public void addEdge(T srcLabel, T tarLabel) {
@@ -100,18 +139,13 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   } // end of addEdge()
 
   public void removeEdge(T srcLabel, T tarLabel) {
-
-      //check both requested vertices are in the list
-      if(vertexLabels.contains(srcLabel) && vertexLabels.contains(tarLabel))
-      {
-        //get index of labels in the array
-        int srcIndex = vertexLabels.indexOf(srcLabel.toString());
-        int tarIndex = vertexLabels.indexOf(tarLabel.toString());
-        graph[srcIndex][tarIndex] = 0;
-        graph[tarIndex][srcIndex] = 0;
-        //go over with Sam
-      }
-      // Implement me!
+    if(vertexLabels.contains(srcLabel) && vertexLabels.contains(tarLabel))
+    {
+      int srcIndex = vertexLabels.indexOf(srcLabel.toString());
+      int tarIndex = vertexLabels.indexOf(tarLabel.toString());
+      graph[srcIndex][tarIndex] = 0;
+      graph[tarIndex][srcIndex] = 0;
+    }
   } // end of removeEdges()
 
 
@@ -144,15 +178,16 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
     for(int i = 0; i < graph.length; i++)
       {
+        os.print("|");
         for(int j = 0; j < graph[i].length; j++)
         {
-          if(graph[i][j] == 1)
-          {
-            String vertexOne = vertexLabels.get(i);
-            String vertexTwo = vertexLabels.get(j);
-            os.println(vertexOne + " " + vertexTwo);
-          }
+            // String vertexOne = vertexLabels.get(i);
+            // String vertexTwo = vertexLabels.get(j);
+            // os.println(vertexOne + " " + vertexTwo);
+            os.print(graph[i][j] + "|");
+
         }
+        os.println();
       }
   } // end of printEdges()
 
@@ -163,19 +198,5 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
       // if we reach this point, source and target are disconnected
       return disconnectedDist;
   } // end of shortestPathDistance()
-
-  public void removeEdgesForVertex(int vertIndex)
-  {
-    for(int i = 0; i < graph.length; i++)
-    {
-      for(int j = 0; j < graph[i].length; j++)
-      {
-        if(i == vertIndex || j == vertIndex)
-        {
-          graph[i][j] = 0;
-        }
-      }
-    }
-  }
 
 } // end of class AdjMatrix
