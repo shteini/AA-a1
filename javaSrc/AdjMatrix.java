@@ -12,7 +12,7 @@ import java.util.*;
 public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 {
   int[][] graph;
-  ArrayList<String> vertexLabels;
+  ArrayList<T> vertexLabels;
 
 /**
  * Contructs empty graph.
@@ -20,15 +20,15 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   public AdjMatrix() {
     graph = new int[0][0];
     //Can we use Hashmap to store index and value i.e. index 0 = A
-    vertexLabels = new ArrayList<String>();
+    vertexLabels = new ArrayList<T>();
   } // end of AdjMatrix()
 
 
   public void addVertex(T vertLabel) {
-    if(!vertexLabels.contains(vertLabel.toString()))
+    if(!vertexLabels.contains(vertLabel))
     {
 
-      vertexLabels.add(vertLabel.toString());
+      vertexLabels.add(vertLabel);
       int graphSize = graph.length;
 
       //Increase the size of the array by 1
@@ -130,8 +130,8 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
     if(vertexLabels.contains(srcLabel) && vertexLabels.contains(tarLabel))
     {
       //Get index of labels in array
-      int srcIndex = vertexLabels.indexOf(srcLabel.toString());
-      int tarIndex = vertexLabels.indexOf(tarLabel.toString());
+      int srcIndex = vertexLabels.indexOf(srcLabel);
+      int tarIndex = vertexLabels.indexOf(tarLabel);
       graph[srcIndex][tarIndex] = 1;
       graph[tarIndex][srcIndex] = 1;
     }
@@ -141,8 +141,8 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   public void removeEdge(T srcLabel, T tarLabel) {
     if(vertexLabels.contains(srcLabel) && vertexLabels.contains(tarLabel))
     {
-      int srcIndex = vertexLabels.indexOf(srcLabel.toString());
-      int tarIndex = vertexLabels.indexOf(tarLabel.toString());
+      int srcIndex = vertexLabels.indexOf(srcLabel);
+      int tarIndex = vertexLabels.indexOf(tarLabel);
       graph[srcIndex][tarIndex] = 0;
       graph[tarIndex][srcIndex] = 0;
     }
@@ -153,11 +153,24 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
       ArrayList<T> neighbours = new ArrayList<T>();
       int vertIndex = vertexLabels.indexOf(vertLabel.toString());
 
-      //first check if given vertLabel is part of graph
-      if(vertexLabels.contains(vertLabel.toString()))
+
+      if(vertexLabels.contains(vertLabel))
       {
-        //check for neighbours
-        
+        //Get the index
+        int vertLabelIndex = vertexLabels.indexOf(vertLabel);
+        //if vertlabel is part of an edge
+        for(int j = 0; j < graph[vertLabelIndex].length; j++)
+        {
+          if(graph[vertLabelIndex][j] == 1)
+          {
+            // If our row A, B or C etc has any edges
+            // with any other vertices we only need to check our row
+            // i.e. A and B have an edge graph[0][1] = 1; and graph[1][0] = 1;
+            // we only need to check graph[indexOfVertexWeAreGettingNeighboursFor][everyColumnInRow]
+            neighbours.add(vertexLabels.get(j));
+          }
+        }
+
         //neighbours.add(vertLabel);
       }
       // Implement me!
@@ -166,10 +179,12 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   } // end of neighbours()
 
   public void printVertices(PrintWriter os) {
-      for(String vertex: vertexLabels)
-      {
-        System.out.print(vertex + " ");
-      }
+    os = new PrintWriter(System.out, true);
+    for(T vertex: vertexLabels)
+    {
+      os.print(vertex + " ");
+    }
+    os.println();
   } // end of printVertices()
 
 
@@ -177,26 +192,59 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
     os = new PrintWriter(System.out, true);
 
     for(int i = 0; i < graph.length; i++)
+    {
+      for(int j = 0; j < graph[i].length; j++)
       {
-        os.print("|");
-        for(int j = 0; j < graph[i].length; j++)
+        if(graph[i][j] == 1)
         {
-            // String vertexOne = vertexLabels.get(i);
-            // String vertexTwo = vertexLabels.get(j);
-            // os.println(vertexOne + " " + vertexTwo);
-            os.print(graph[i][j] + "|");
-
+          String vertexOne = vertexLabels.get(i).toString();
+          String vertexTwo = vertexLabels.get(j).toString();
+          os.println(vertexOne + " " + vertexTwo);
         }
-        os.println();
       }
+    }
   } // end of printEdges()
 
 
   public int shortestPathDistance(T vertLabel1, T vertLabel2) {
-    // Implement me!
+    if(vertexLabels.contains(vertLabel1) && vertexLabels.contains(vertLabel2))
+    {
+      int source = vertexLabels.indexOf(vertLabel1);
+      int target = vertexLabels.indexOf(vertLabel2);
+      LinkedList<T> queue = new LinkedList<T>();
+      int[] distances = new int[graph.length];
+      Arrays.fill(distances, -1);
+      queue.add(vertLabel1);
+      distances[vertexLabels.indexOf(vertLabel1)] = 0;
+      while(!queue.isEmpty())
+      {
+        // Get the index of the first vertex from the queue and remove it from the queue.
+        T vertex = queue.poll();
+        // Get all the neighbours of the vertex
+        ArrayList<T> neighbours = neighbours(vertex);
 
-      // if we reach this point, source and target are disconnected
-      return disconnectedDist;
+        // Loop through the neighbours of the vertex
+        for(T neighbour: neighbours)
+        {
+          // If we haven't visited the neighbour(vertex) yet then the distance will be -1
+          // If we have visited already then the for loop will move to the next neighbour.
+          if(distances[vertexLabels.indexOf(neighbour)] == -1)
+          {
+            // Set the distance of this neighbour = currentvertex distance +1
+            distances[vertexLabels.indexOf(neighbour)] = distances[vertexLabels.indexOf(vertex)] + 1;
+            // Add the neighbour to the queue to check it's neighbours next
+            queue.add(neighbour);
+          }
+        }
+      }
+
+      int shortestPath = distances[vertexLabels.indexOf(vertLabel2)];
+      return shortestPath;
+    }
+    else
+    {
+      return -1;
+    }
   } // end of shortestPathDistance()
 
 } // end of class AdjMatrix
