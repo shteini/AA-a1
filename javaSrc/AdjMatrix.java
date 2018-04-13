@@ -117,10 +117,13 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
   public ArrayList<T> neighbours(T vertLabel) {
       ArrayList<T> neighbours = new ArrayList<T>();
+      vertIndex = vertexLabels.indexOf(vertLabel.toString())
 
+      //first check if given vertLabel is part of graph
       if(vertexLabels.contains(vertLabel.toString()))
       {
-        //if vertlabel is part of an edge
+        //check for neighbours
+        
         //neighbours.add(vertLabel);
       }
       // Implement me!
