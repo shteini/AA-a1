@@ -76,26 +76,37 @@ public void addEdge(T srcLabel, T tarLabel) {
     int sourceIndex = vertexLabels.indexOf(srcLabel);
     int tarIndex = vertexLabels.indexOf(tarLabel);
     int[][] temp = new int[rowSize][columnSize + 1];
-
-      for(int i = 0; i < graph.length; i++)
+    for(int i = 0; i < graph.length; i++)
+    {
+      for(int j = 0; j < graph[i].length; j++)
       {
-        for(int j = 0; j < graph[i].length; j++)
-        {
-        temp[i][j] = graph[i][j];
-        }
+      temp[i][j] = graph[i][j];
       }
-      graph = temp;
-      graph[sourceIndex][graph[0].length-1] = 1;
-      graph[tarIndex][graph[0].length-1] = 1;
+    }
+    graph = temp;
+    graph[sourceIndex][graph[0].length-1] = 1;
+    graph[tarIndex][graph[0].length-1] = 1;
   }
 } // end of addEdge()
 
 
 public ArrayList<T> neighbours(T vertLabel) {
     ArrayList<T> neighbours = new ArrayList<T>();
-
-    // Implement me!
-
+    int vertIndex = vertexLabels.indexOf(vertLabel);
+    for(int i = 0; i < graph[vertIndex].length; i++)
+    {
+     if(graph[vertIndex][i] == 1)
+     {
+      for(int j = 1; j < graph.length; j++)
+      {
+        if(graph[j][i] == 1)
+        {
+          T neighbour = vertexLabels.get(j);
+          neighbours.add(neighbour);
+        }
+      }
+     }
+    }
     return neighbours;
 } // end of neighbours()
 
