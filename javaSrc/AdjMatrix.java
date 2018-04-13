@@ -176,10 +176,12 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   } // end of neighbours()
 
   public void printVertices(PrintWriter os) {
-      for(T vertex: vertexLabels)
-      {
-        System.out.print(vertex + " ");
-      }
+    os = new PrintWriter(System.out, true);
+    for(T vertex: vertexLabels)
+    {
+      os.print(vertex + " ");
+    }
+    os.println();
   } // end of printVertices()
 
 
@@ -204,14 +206,37 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   public int shortestPathDistance(T vertLabel1, T vertLabel2) {
     if(vertexLabels.contains(vertLabel1) && vertexLabels.contains(vertLabel2))
     {
-      List<> queue = new List<>();
-      int[] distances = new int[]
-
-      while(!queue.isEmpty();)
+      int source = vertexLabels.indexOf(vertLabel1);
+      int target = vertexLabels.indexOf(vertLabel2);
+      LinkedList<T> queue = new LinkedList<T>();
+      int[] distances = new int[graph.length];
+      Arrays.fill(distances, -1);
+      queue.add(vertLabel1);
+      distances[vertexLabels.indexOf(vertLabel1)] = 0;
+      while(!queue.isEmpty())
       {
+        // Get the index of the first vertex from the queue and remove it from the queue.
+        T vertex = queue.poll();
+        // Get all the neighbours of the vertex
+        ArrayList<T> neighbours = neighbours(vertex);
 
+        // Loop through the neighbours of the vertex
+        for(T neighbour: neighbours)
+        {
+          // If we haven't visited the neighbour(vertex) yet then the distance will be -1
+          // If we have visited already then the for loop will move to the next neighbour.
+          if(distances[vertexLabels.indexOf(neighbour)] == -1)
+          {
+            // Set the distance of this neighbour = currentvertex distance +1
+            distances[vertexLabels.indexOf(neighbour)] = distances[vertexLabels.indexOf(vertex)] + 1;
+            // Add the neighbour to the queue to check it's neighbours next
+            queue.add(neighbour);
+          }
+        }
       }
 
+      int shortestPath = distances[vertexLabels.indexOf(vertLabel2)];
+      return shortestPath;
     }
     else
     {
