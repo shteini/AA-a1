@@ -1,8 +1,10 @@
 public class ScenarioOne
 {
   private FriendshipGraph matrix;
-  private long startTime;
-  private long finishTime;
+  private long startTimeAddVertex;
+  private long finishTimeAddVertex;
+  private long startTimeAddEdges;
+  private long finishTimeAddEdges;
 
   public ScenarioOne(String type)
   {
@@ -16,19 +18,10 @@ public class ScenarioOne
     }
   }
 
-
-  private String runScenarioOne(ArrayList<String> lines)
+  public void addEdges()
   {
-    this.startTime = System.nanoTime();
-
-    for(String line: lines)
-    {
-      String[] vertices = line.split(" ");
-      matrix.addVertex(vertices[0]);
-      matrix.addVertex(vertices[1]);
-    }
-
-    for(String line: lines)
+    this. = System.nanoTime();
+     for(String line: lines)
     {
       String[] vertices = line.split(" ");
       matrix.addEdge(vertices[0], vertices[1]);
@@ -37,9 +30,29 @@ public class ScenarioOne
     this.finishTime = System.nanoTime();
   }
 
-  private getTotalElapsedTime()
+  public void addVertices(ArrayList<String> lines)
   {
-    return finishTime - startTime;
+    this.startTimeAddVertex = System.nanoTime();
+    for(String line: lines)
+    {
+      String[] vertices = line.split(" ");
+      matrix.addVertex(vertices[0]);
+      matrix.addVertex(vertices[1]);
+    }
+    this.finishTimeAddVertex = System.nanoTime();
+  }
+
+
+  private void runScenarioOne(ArrayList<String> lines)
+  {
+
+
+
+  }
+
+  private long getTotalElapsedTimeAddVertices()
+  {
+    return finishTimeAddVertex - startTimeAddVertex;
   }
 
   private getTotalElapsedTimeAddEdges()

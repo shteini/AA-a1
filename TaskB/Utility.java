@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Tester {	
+public class Utility {
 
 	public ArrayList<String> getLines(int linesToRead) {
 
@@ -28,14 +28,14 @@ public class Tester {
 
 		return lines;
 
-	} catch (IOException ex) 
+	} catch (IOException ex)
 		{
-         ex.printStackTrace(); 
+         ex.printStackTrace();
          return lines;
-		} 	
- }  
+		}
+ }
 
 }
 
 
-	
+
