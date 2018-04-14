@@ -1,7 +1,5 @@
 public class ScenarioTwo
 {
-
-
   private AdjMatrix adj;
   private IndMatrix ind;
   private long startTime;
