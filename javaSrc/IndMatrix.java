@@ -117,7 +117,69 @@ public void removeVertex(T vertLabel) {
 
 
 public void removeEdge(T srcLabel, T tarLabel) {
-    // Implement me!
+  if(vertexLabels.contains(srcLabel) && vertexLabels.contains(tarLabel))
+  {
+    // index of srcLabel
+    int srcIndex = vertexLabels.indexOf(srcLabel);
+    // index of tarLabel
+    int tarIndex = vertexLabels.indexOf(tarLabel);
+    // resize graph to be 1 less in columns, we will copy graph to this new
+    // temp array once we have discovered the index of the column to remove
+    // which we will do by simply not adding that column to the new array
+    int[][] temp = new int[graph.length][graph[0].length-1];
+    // This int will hold the index(position) of the column we want to remove
+    int columnToRemove = -1;
+
+    // This for loop find the column where both srcLabel(i.e. vertex A)
+    // and tarLabel(i.e. vertex B) are == 1 meaning that there is an edge between
+    // vertex A and vertex B this will be the column we want to remove, represented
+    // as i. We then save the index of this column to use in the next step
+    for(int i = 0; i < graph[srcIndex].length; i++)
+    {
+     if(graph[srcIndex][i] == 1 && graph[tarIndex][i] == 1)
+     {
+      columnToRemove = i;
+     }
+    }
+    // If column to remove is still -1 at this point it means that we did not
+    // find an edge between the given vertices so we tell the user that in the
+    // else statment. Otherwise we enter here and remove that column
+    if(columnToRemove != -1)
+    {
+      int tempJ = 0;
+      for(int i = 0; i < graph.length; i++)
+      {
+        tempJ = 0;
+        for(int j = 0; j < graph[i].length; j++)
+        {
+          //If the current column is the column we want to delete,
+          //save the current column position in tempJ and increment J++
+          //i.e. skip over it. This next position we have already accessed in the previous line.
+          //the for loop also increments j again so we get to the next position i.e. skip one column
+          if(j == columnToRemove)
+          {
+            tempJ = j;
+            continue;
+          }
+          else
+          {
+            temp[i][tempJ] = graph[i][j];
+            tempJ++;
+          }
+        }
+      }
+    }
+    else
+    {
+      System.out.println("There was no edge to remove between those two vertices");
+    }
+    //With temp updated with the removed column, now we can save the graph
+    graph = temp;
+  }
+  else
+  {
+    System.out.println("One or both of the given vertices do not exist");
+  }
 } // end of removeEdges()
 
 
@@ -132,15 +194,28 @@ public void printVertices(PrintWriter os) {
 
 
 public void printEdges(PrintWriter os) {
+  // os = new PrintWriter(System.out, true);
+
+  // for(int i = 0; i < graph[0].length; i++)
+  // {
+  //   for(int j = 0; j < graph.length; j++)
+  //   {
+  //     if(graph[j][i] == 1)
+  //     {
+  //       os.print(vertexLabels.get(j) + " ");
+  //     }
+  //   }
+  //   os.println();
+  // }
+  os = new PrintWriter(System.out, true);
 
   for(int i = 0; i < graph.length; i++)
   {
     for(int j = 0; j < graph[i].length; j++)
     {
-      System.out.print(graph[i][j] + " |");
+      os.print(graph[i][j] + " |");
     }
-    System.out.println();
-    // Implement me!
+    os.println();
   }
 } // end of printEdges()
 
