@@ -114,57 +114,56 @@ public ArrayList<T> neighbours(T vertLabel) {
 public void removeVertex(T vertLabel) {
 
     int graphSize = graph.length;
-    int[][] temp = new int[graphSize - 1][graph[0].length];
-    ArrayList<Integar> vertexEdgeList = new ArrayList<Integar>();
+    ArrayList<Integer> vertexEdgeList = new ArrayList<Integer>();
 
     //The index of the vertex we are trying to delete
     int vertIndex = vertexLabels.indexOf(vertLabel);
 
     //for loop reach the 1 in the row and remove the column
-    for(int i=0; i < graph[vertIndex].lenth; i++)
+    for(int i=0; i < graph[vertIndex].length; i++)
     {
       //if it finds a 1
       if(graph[vertIndex][i] == 1)
       {
         for(int j = 0; j< graphSize; j++)
         {
-          if(graphSize[j] ==1)
+          if(graph[j][i] == 1 && j != vertIndex)
           {
-            vertexEdgeList.add(graphSize[j]);
+            vertexEdgeList.add(j);
           }
-        }
-        //remove this column with a for loop that adds the vertLabel as source and item from arraylist as target
-        for(int m = 0; m < vertexEdgeList.size(); m++)
-        {
-          removeEdge(vertLabel, vertexLabels.get(vertexEdgeList.get(m)));
         }
       }
     }
+    //remove this column with a for loop that adds the vertLabel as source and item from arraylist as target
+    for(int m = 0; m < vertexEdgeList.size(); m++)
+    {
+      removeEdge(vertLabel, vertexLabels.get(vertexEdgeList.get(m)));
+    }
+    int[][] temp = new int[graphSize - 1][graph[0].length];
+    int tempI = 0;
+    for(int i = 0; i < graph.length; i++)
+    {
 
-      int tempI = 0;
-      for(int i = 0; i < graph.length; i++)
+      if(i == vertIndex && i == graph.length-1)
       {
-        
-        if(i == vertIndex && i == graph.length-1)
-        {
-          break;
-        }
-        else if(i == vertIndex && i != graph.length-1)
-        {
-          tempI = i;
-          continue;
-
-        }
-        for(int j = 0; j < graph[i].length; j++)
-        {
-          temp[tempI][j] = graph[i][j];
-        }
-        tempI++;
+        break;
       }
-      //remove from the vertexLabel list
-      vertexLabels.remove(vertLabel);
-      //With temp updated with the removed vertex row and column now we can save the graph
-      graph = temp;
+      else if(i == vertIndex && i != graph.length-1)
+      {
+        tempI = i;
+        continue;
+
+      }
+      for(int j = 0; j < graph[i].length; j++)
+      {
+        temp[tempI][j] = graph[i][j];
+      }
+      tempI++;
+    }
+    //remove from the vertexLabel list
+    vertexLabels.remove(vertLabel);
+    //With temp updated with the removed vertex row and column now we can save the graph
+    graph = temp;
 
 } // end of removeVertex()
 
@@ -247,29 +246,29 @@ public void printVertices(PrintWriter os) {
 
 
 public void printEdges(PrintWriter os) {
-  // os = new PrintWriter(System.out, true);
-
-  // for(int i = 0; i < graph[0].length; i++)
-  // {
-  //   for(int j = 0; j < graph.length; j++)
-  //   {
-  //     if(graph[j][i] == 1)
-  //     {
-  //       os.print(vertexLabels.get(j) + " ");
-  //     }
-  //   }
-  //   os.println();
-  // }
   os = new PrintWriter(System.out, true);
 
-  for(int i = 0; i < graph.length; i++)
+  for(int i = 0; i < graph[0].length; i++)
   {
-    for(int j = 0; j < graph[i].length; j++)
+    for(int j = 0; j < graph.length; j++)
     {
-      os.print(graph[i][j] + " |");
+      if(graph[j][i] == 1)
+      {
+        os.print(vertexLabels.get(j) + " ");
+      }
     }
     os.println();
   }
+  // os = new PrintWriter(System.out, true);
+
+  // for(int i = 0; i < graph.length; i++)
+  // {
+  //   for(int j = 0; j < graph[i].length; j++)
+  //   {
+  //     os.print(graph[i][j] + " |");
+  //   }
+  //   os.println();
+  // }
 } // end of printEdges()
 
 
