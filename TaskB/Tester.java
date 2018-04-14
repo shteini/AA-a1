@@ -7,7 +7,8 @@ public class Tester {
 
 		ArrayList<String> lines = new ArrayList<String>();
 		try{
-				//generate another randomLines as starting point
+		
+		//generate another randomLines as starting point
 		//if that random number is bigger than zero and less than facebook data - linesToRead
 		//read in from file and return a string with all the lines in this string
 		String fileName = "../testing/facebook_combined.txt";

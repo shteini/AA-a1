@@ -41,4 +41,9 @@ public class ScenarioOne
   {
     return finishTime - startTime;
   }
+
+  private getTotalElapsedTimeAddEdges()
+  {
+  	return finishTime - startTime;
+  }
 }
