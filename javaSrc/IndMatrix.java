@@ -74,7 +74,10 @@ public class IndMatrix <T extends Object> implements FriendshipGraph<T>
     
     public void addEdge(T srcLabel, T tarLabel) {
 
-        
+        if(vertexLabels.contains(srcLabel) && vertexLabels.contains(tarLabel))
+        {
+            
+        }
         // Implement me!
     } // end of addEdge()
 	
