@@ -112,7 +112,60 @@ public ArrayList<T> neighbours(T vertLabel) {
 
 
 public void removeVertex(T vertLabel) {
-    // Implement me!
+
+    int graphSize = graph.length;
+    int[][] temp = new int[graphSize - 1][graph[0].length];
+    ArrayList<Integar> vertexEdgeList = new ArrayList<Integar>();
+
+    //The index of the vertex we are trying to delete
+    int vertIndex = vertexLabels.indexOf(vertLabel);
+
+    //for loop reach the 1 in the row and remove the column
+    for(int i=0; i < graph[vertIndex].lenth; i++)
+    {
+      //if it finds a 1
+      if(graph[vertIndex][i] == 1)
+      {
+        for(int j = 0; j< graphSize; j++)
+        {
+          if(graphSize[j] ==1)
+          {
+            vertexEdgeList.add(graphSize[j]);
+          }
+        }
+        //remove this column with a for loop that adds the vertLabel as source and item from arraylist as target
+        for(int m = 0; m < vertexEdgeList.size(); m++)
+        {
+          removeEdge(vertLabel, vertexLabels.get(vertexEdgeList.get(m)));
+        }
+      }
+    }
+
+      int tempI = 0;
+      for(int i = 0; i < graph.length; i++)
+      {
+        
+        if(i == vertIndex && i == graph.length-1)
+        {
+          break;
+        }
+        else if(i == vertIndex && i != graph.length-1)
+        {
+          tempI = i;
+          continue;
+
+        }
+        for(int j = 0; j < graph[i].length; j++)
+        {
+          temp[tempI][j] = graph[i][j];
+        }
+        tempI++;
+      }
+      //remove from the vertexLabel list
+      vertexLabels.remove(vertLabel);
+      //With temp updated with the removed vertex row and column now we can save the graph
+      graph = temp;
+
 } // end of removeVertex()
 
 
