@@ -5,13 +5,12 @@ public class ScenarioThree
   private long startTime;
   private long finishTime;
 
-  private String runScenarioThree(String lines)
+  private void runScenarioThree(String lines)
   {
 
   }
 
-
-  private getTotalElapsedTime()
+  private long getTotalElapsedTime()
   {
     return finishTime - startTime;
   }

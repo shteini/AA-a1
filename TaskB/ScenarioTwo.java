@@ -5,12 +5,12 @@ public class ScenarioTwo
   private long startTime;
   private long finishTime;
 
-  private String runScenarioTwo(String lines)
+  private void runScenarioTwo(String lines)
   {
 
   }
 
-  private getTotalElapsedTime()
+  private long getTotalElapsedTime()
   {
     return finishTime - startTime;
   }

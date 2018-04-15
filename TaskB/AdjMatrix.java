@@ -52,10 +52,10 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
         graph = temp;
       }
     }
-    else
-    {
-      System.out.println("Vertex already exists");
-    }
+    // else
+    // {
+    //   System.out.println("Vertex already exists");
+    // }
   } // end of addVertex()
 
   public void removeVertex(T vertLabel) {
@@ -207,6 +207,43 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 
   public ArrayList<T> getVertices() {
     return this.vertexLabels;
+  }
+
+  public int numberOfVertices()
+  {
+    return graph.length;
+  }
+
+  public int numberOfEdges()
+  {
+    int edgeNumber = 0;
+    for(int i = 0; i < graph.length; i ++)
+    {
+      for(int j = 0; j < graph[i].length; j++)
+      {
+        if(graph[i][j] == 1)
+        {
+          edgeNumber++;
+        }
+      }
+    }
+    return edgeNumber;
+  }
+
+public float density()
+{
+  int numEdges = numberOfEdges();
+  int numVert = numberOfVertices();
+  int vertSquared = numVert * numVert;
+  float density = (float)numEdges/vertSquared;
+  return density;
+}
+
+  public void printData()
+  {
+    System.out.println("Number of Vertices: " + numberOfVertices());
+    System.out.println("Number of Edges: " + numberOfEdges());
+    System.out.println("Density: " + density());
   }
 
 

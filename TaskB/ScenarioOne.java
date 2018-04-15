@@ -1,3 +1,4 @@
+import java.util.*;
 public class ScenarioOne
 {
   private FriendshipGraph matrix;
@@ -10,27 +11,32 @@ public class ScenarioOne
   {
     if(type.equals("adjmat"))
     {
-      matrix = new AdjMatrix<T>();
+      matrix = new AdjMatrix();
     }
-    else if(type.equals('indmat'))
+    else if(type.equals("indmat"))
     {
-      matrix = new IndMatrix<T>();
+      matrix = new IndMatrix();
     }
   }
 
-  public void addEdges()
+  public void runScenarioOne(ArrayList<String> lines)
   {
-    this. = System.nanoTime();
-     for(String line: lines)
+    addEdges(lines);
+    addVertices(lines);
+  }
+
+  private void addEdges(ArrayList<String> lines)
+  {
+    this.startTimeAddEdges = System.nanoTime();
+    for(String line: lines)
     {
       String[] vertices = line.split(" ");
       matrix.addEdge(vertices[0], vertices[1]);
     }
-
-    this.finishTime = System.nanoTime();
+    this.finishTimeAddEdges = System.nanoTime();
   }
 
-  public void addVertices(ArrayList<String> lines)
+  private void addVertices(ArrayList<String> lines)
   {
     this.startTimeAddVertex = System.nanoTime();
     for(String line: lines)
@@ -42,16 +48,18 @@ public class ScenarioOne
     this.finishTimeAddVertex = System.nanoTime();
   }
 
-
-  private void runScenarioOne(ArrayList<String> lines)
-  {
-
-
-
-  }
-
-  private long getTotalElapsedTimeAddVertices()
+  public long getTotalElapsedTimeAddVertices()
   {
     return finishTimeAddVertex - startTimeAddVertex;
+  }
+
+  public long getTotalElapsedTimeAddEdges()
+  {
+    return finishTimeAddEdges - startTimeAddEdges;
+  }
+
+  public void printData()
+  {
+    matrix.printData();
   }
 }

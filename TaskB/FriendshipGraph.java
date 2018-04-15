@@ -68,6 +68,15 @@ public interface FriendshipGraph<T extends Object>
 
 	public abstract ArrayList<T> getVertices();
 
+	public abstract int numberOfVertices();
+
+	public abstract int numberOfEdges();
+
+	public abstract float density();
+
+	public abstract void printData();
+
+
 	/**
 	 * Prints the list of edges to PrintWriter 'os'.
 	 *
