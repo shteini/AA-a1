@@ -21,8 +21,9 @@ public class ScenarioOne
 
   public void runScenarioOne(ArrayList<String> lines)
   {
+  	addVertices(lines);
     addEdges(lines);
-    addVertices(lines);
+    
   }
 
   private void addEdges(ArrayList<String> lines)

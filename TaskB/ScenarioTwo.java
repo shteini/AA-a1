@@ -1,3 +1,4 @@
+import java.util.*;
 public class ScenarioTwo
 {
   private FriendshipGraph matrix;
