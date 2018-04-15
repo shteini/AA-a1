@@ -78,6 +78,7 @@ public class DataGenerator
     //   // averageGrowingAddVerticesAdjMat += oneGrowAdjMat.getTotalElapsedTimeAddVertices();
 
     }
+    
     System.out.println("Average Time taken for Edges IncidenceMatrix: " +averageAddEdgesIndMat/10+"ns.");
     System.out.println("Average Time taken for Vertices IncidenceMatrix: " +averageAddVerticesIndMat/10+"ns.");
     System.out.println("Average Time taken for Edges AdjacencyMatrix: " +averageAddEdgesAdjMat/10+"ns.");
@@ -129,46 +130,45 @@ public class DataGenerator
     // System.out.println("Average Time taken for ShortestPath IncidenceMatrix: " +averageShortestPathIndMat/10+"ns.");
     // System.out.println("Average Time taken for ShortestPath AdjacencyMatrix: " +averageShortestPathAdjMat/10+"ns.");
 
-  //   //Scenario 3
-    // long averageRemoveEdgesIndMat = 0;
-    // long averageRemoveVerticesIndMat = 0;
-    // long averageRemoveEdgesAdjMat = 0;
-    // long averageRemoveVerticesAdjMat = 0;
+    //Scenario 3
+    long averageRemoveEdgesIndMat = 0;
+    long averageRemoveVerticesIndMat = 0;
+    long averageRemoveEdgesAdjMat = 0;
+    long averageRemoveVerticesAdjMat = 0;
 
-    // System.out.println("*** SCENARIO 3 ***");
-    // for(int i = 1; i <= 10; i++)
-    // {
-    //   ScenarioThree threeAdjMat = new ScenarioThree("adjmat");
-    //   ScenarioThree threeIndMat = new ScenarioThree("indmat");
-    //   int amountOfLines = rand.nextInt(100)+1;
-    //   System.out.printf("\n\nAmount Of Lines: %d", amountOfLines);
-    //   ArrayList<String> lines = util.getLines(amountOfLines);
+    System.out.println("*** SCENARIO 3 ***");
+    for(int i = 1; i <= 10; i++)
+    {
+      ScenarioThree threeAdjMat = new ScenarioThree("adjmat");
+      ScenarioThree threeIndMat = new ScenarioThree("indmat");
+      int amountOfLines = rand.nextInt(100)+1;
+      System.out.printf("\n\nAmount Of Lines: %d", amountOfLines);
+      ArrayList<String> lines = util.getLines(amountOfLines);
 
-    //   // Incidence Matrix
-    //   threeIndMat.runScenarioThree(lines);
-    //   System.out.printf("\t\n---SUBSET %d---\n",i);
-    //   System.out.println("\tType of Matrix: IncidenceMatrix");
-    //   System.out.println("\tRemove vertex Time taken: " + threeIndMat.getTotalElapsedTimeRemoveVertex()+"ns.");
-    //   System.out.println("\tRemove edge Time taken: " + threeIndMat.getTotalElapsedTimeRemoveEdge()+"ns.");
-    //   averageRemoveVerticesIndMat += threeIndMat.getTotalElapsedTimeRemoveVertex();
-    //   averageRemoveEdgesIndMat += threeIndMat.getTotalElapsedTimeRemoveEdge();
+      // Incidence Matrix
+      threeIndMat.runScenarioThree(lines);
+      System.out.printf("\t\n---SUBSET %d---\n",i);
+      System.out.println("\tType of Matrix: IncidenceMatrix");
+      System.out.println("\tRemove vertex Time taken: " + threeIndMat.getTotalElapsedTimeRemoveVertex()+"ns.");
+      System.out.println("\tRemove edge Time taken: " + threeIndMat.getTotalElapsedTimeRemoveEdge()+"ns.");
+      averageRemoveVerticesIndMat += threeIndMat.getTotalElapsedTimeRemoveVertex();
+      averageRemoveEdgesIndMat += threeIndMat.getTotalElapsedTimeRemoveEdge();
 
-    //   // Adjacency Matrix
-    //   threeAdjMat.runScenarioThree(lines);
-    //   System.out.printf("\t\n---SUBSET %d---\n",i);
-    //   System.out.println("\tType of Matrix: IncidenceMatrix");
-    //   System.out.println("\tRemove vertex Time taken: " + threeAdjMat.getTotalElapsedTimeRemoveVertex()+"ns.");
-    //   System.out.println("\tRemove edge Time taken: " + threeAdjMat.getTotalElapsedTimeRemoveEdge()+"ns.");
-    //   averageRemoveVerticesAdjMat += threeAdjMat.getTotalElapsedTimeRemoveVertex();
-    //   averageRemoveEdgesAdjMat += threeAdjMat.getTotalElapsedTimeRemoveEdge();
-    // }
-    // System.out.println("Average Time taken for Remove Vertex IncidenceMatrix: " +averageRemoveVerticesIndMat/10+"ns.");
-    // System.out.println("Average Time taken for Remove Vertex AdjacencyMatrix: " +averageRemoveVerticesAdjMat/10+"ns.");
-    // System.out.println("Average Time taken for Remove Edge IncidenceMatrix: " +averageRemoveEdgesIndMat/10+"ns.");
-    // System.out.println("Average Time taken for Remove Edge AdjacencyMatrix: " +averageRemoveEdgesAdjMat/10+"ns.");
+      // Adjacency Matrix
+      threeAdjMat.runScenarioThree(lines);
+      System.out.printf("\t\n---SUBSET %d---\n",i);
+      System.out.println("\tType of Matrix: Adjacency Matrix");
+      System.out.println("\tRemove vertex Time taken: " + threeAdjMat.getTotalElapsedTimeRemoveVertex()+"ns.");
+      System.out.println("\tRemove edge Time taken: " + threeAdjMat.getTotalElapsedTimeRemoveEdge()+"ns.");
+      averageRemoveVerticesAdjMat += threeAdjMat.getTotalElapsedTimeRemoveVertex();
+      averageRemoveEdgesAdjMat += threeAdjMat.getTotalElapsedTimeRemoveEdge();
+    }
+
+    System.out.println("Average Time taken for Remove Vertex IncidenceMatrix: " +averageRemoveVerticesIndMat/10+"ns.");
+    System.out.println("Average Time taken for Remove Vertex AdjacencyMatrix: " +averageRemoveVerticesAdjMat/10+"ns.");
+    System.out.println("Average Time taken for Remove Edge IncidenceMatrix: " +averageRemoveEdgesIndMat/10+"ns.");
+    System.out.println("Average Time taken for Remove Edge AdjacencyMatrix: " +averageRemoveEdgesAdjMat/10+"ns.");
   }
-
-}
 
 
 

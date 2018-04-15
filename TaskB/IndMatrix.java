@@ -223,17 +223,10 @@ public void removeEdge(T srcLabel, T tarLabel) {
         }
       }
     }
-    else
-    {
-      System.out.println("There was no edge to remove between those two vertices");
-    }
     //With temp updated with the removed column, now we can save the graph
     graph = temp;
   }
-  else
-  {
-    System.out.println("One or both of the given vertices do not exist");
-  }
+
 } // end of removeEdges()
 
 
