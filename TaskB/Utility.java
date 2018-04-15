@@ -10,22 +10,16 @@ public class Utility
 		ArrayList<String> lines = new ArrayList<String>();
 		try
 		{
-			//generate another randomLines as starting point
-			//if that random number is bigger than zero and less than facebook data - linesToRead
-			//read in from file and return a string with all the lines in this string
-			Random r = new Random();
-			int maxStartPosition = MAX_NUMBER_LINES - linesToRead;
-			int startPosition = (r.nextInt(maxStartPosition) + 1);
 			String fileName = "../testing/facebook_combined.txt";
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 			String line;
 			int counter = 0;
-			line = br.readLine();
-			while ((line != null && counter < linesToRead))
+			while ( (line = br.readLine()) != null)
 			{
-				lines.add(line);
-				counter++;
-				line = br.readLine();
+        if(counter == linesToRead) {
+          break; }
+        lines.add(line);
+        counter++;
 			}
 		} catch (IOException ex)
 		{

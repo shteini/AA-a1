@@ -21,10 +21,12 @@ public class ScenarioThree
 
   public void runScenarioThree(ArrayList<String> lines)
   {
+    addVertices(lines);
+    addEdges(lines);
+    timeRemoveEdge(lines);
   	timeRemoveVertex(lines);
-  	timeRemoveEdge(lines);
   }
-  
+
   private void timeRemoveEdge(ArrayList<String> lines)
   {
     this.startTimeRemoveEdge = System.nanoTime();
@@ -48,12 +50,31 @@ public class ScenarioThree
     this.finishTimeRemoveVertex = System.nanoTime();
   }
 
-  public long getTotalTimeElapsedRemoveEdge()
+  private void addVertices(ArrayList<String> lines)
+  {
+    for(String line: lines)
+    {
+      String[] vertices = line.split(" ");
+      matrix.addVertex(vertices[0]);
+      matrix.addVertex(vertices[1]);
+    }
+  }
+
+  private void addEdges(ArrayList<String> lines)
+  {
+    for(String line: lines)
+    {
+      String[] vertices = line.split(" ");
+      matrix.addEdge(vertices[0], vertices[1]);
+    }
+  }
+
+  public long getTotalElapsedTimeRemoveEdge()
   {
     return finishTimeRemoveEdge - startTimeRemoveEdge;
   }
 
-  public long getTotalElapsedRemoveVertex()
+  public long getTotalElapsedTimeRemoveVertex()
   {
     return finishTimeRemoveVertex - startTimeRemoveVertex;
   }
