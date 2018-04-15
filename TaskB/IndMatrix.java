@@ -295,9 +295,9 @@ public float density()
 
 public void printData()
 {
-  System.out.println("Number of Vertices: " + numberOfVertices());
-  System.out.println("Number of Edges: " + numberOfEdges());
-  System.out.println("Density: " + density());
+  System.out.println("\tNumber of Vertices: " + numberOfVertices());
+  System.out.println("\tNumber of Edges: " + numberOfEdges());
+  System.out.println("\tDensity: " + density());
 }
 
 
