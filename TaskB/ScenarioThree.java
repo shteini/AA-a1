@@ -6,7 +6,7 @@ public class ScenarioThree
   private long startTimeRemoveVertex;
   private long finishTimeRemoveVertex;
 
-  public ScenarioTwo(String type)
+  public ScenarioThree(String type)
   {
     if(type.equals("adjmat"))
     {
