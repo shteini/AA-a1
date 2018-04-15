@@ -1,3 +1,4 @@
+import java.util.*;
 public class ScenarioTwo
 {
   private FriendshipGraph matrix;
@@ -20,10 +21,12 @@ public class ScenarioTwo
 
   public void runScenarioTwo(ArrayList<String> lines)
   {
+    addVertices(lines);
+    addEdges(lines);
   	timeShortestPath(lines);
   	timeNeighbours(lines);
   }
-  
+
   private void timeShortestPath(ArrayList<String> lines)
   {
     this.startTimeShortestPath = System.nanoTime();
@@ -45,6 +48,25 @@ public class ScenarioTwo
       matrix.neighbours(vertices[1]);
     }
     this.finishTimeNeighbours = System.nanoTime();
+  }
+
+  private void addVertices(ArrayList<String> lines)
+  {
+    for(String line: lines)
+    {
+      String[] vertices = line.split(" ");
+      matrix.addVertex(vertices[0]);
+      matrix.addVertex(vertices[1]);
+    }
+  }
+
+  private void addEdges(ArrayList<String> lines)
+  {
+    for(String line: lines)
+    {
+      String[] vertices = line.split(" ");
+      matrix.addEdge(vertices[0], vertices[1]);
+    }
   }
 
   public long getTotalElapsedTimeNeighbours()

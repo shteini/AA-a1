@@ -11,8 +11,8 @@ import java.util.*;
 */
 public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
 {
-  private int[][] graph;
-  private ArrayList<T> vertexLabels;
+  int[][] graph;
+  ArrayList<T> vertexLabels;
 
 /**
  * Contructs empty graph.
@@ -179,18 +179,15 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   } // end of neighbours()
 
   public void printVertices(PrintWriter os) {
-    os = new PrintWriter(System.out, true);
     for(T vertex: vertexLabels)
     {
       os.print(vertex + " ");
+      os.flush();
     }
-    os.println();
   } // end of printVertices()
 
 
   public void printEdges(PrintWriter os) {
-    os = new PrintWriter(System.out, true);
-
     for(int i = 0; i < graph.length; i++)
     {
       for(int j = 0; j < graph[i].length; j++)
@@ -200,6 +197,7 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
           String vertexOne = vertexLabels.get(i).toString();
           String vertexTwo = vertexLabels.get(j).toString();
           os.println(vertexOne + " " + vertexTwo);
+          os.flush();
         }
       }
     }
@@ -227,17 +225,17 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
         }
       }
     }
-    return edgeNumber;
+    return edgeNumber / 2;
   }
 
-public float density()
-{
-  int numEdges = numberOfEdges();
-  int numVert = numberOfVertices();
-  int vertSquared = numVert * numVert;
-  float density = (float)numEdges/vertSquared;
-  return density;
-}
+  public float density()
+  {
+    int numEdges = numberOfEdges();
+    int numVert = numberOfVertices();
+    int vertSquared = numVert * numVert;
+    float density = (float)numEdges/(float)vertSquared;
+    return density;
+  }
 
   public void printData()
   {

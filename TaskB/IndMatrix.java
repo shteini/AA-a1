@@ -11,8 +11,8 @@ import java.util.*;
 */
 public class IndMatrix <T extends Object> implements FriendshipGraph<T>
 {
-private int graph[][];
-private ArrayList<T> vertexLabels;
+int graph[][];
+ArrayList<T> vertexLabels;
 /**
 * Contructs empty graph.
 */
@@ -97,9 +97,9 @@ public ArrayList<T> neighbours(T vertLabel) {
     {
      if(graph[vertIndex][i] == 1)
      {
-      for(int j = 1; j < graph.length; j++)
+      for(int j = 0; j < graph.length; j++)
       {
-        if(graph[j][i] == 1)
+        if(graph[j][i] == 1 && j != vertIndex)
         {
           T neighbour = vertexLabels.get(j);
           neighbours.add(neighbour);
@@ -112,7 +112,8 @@ public ArrayList<T> neighbours(T vertLabel) {
 
 
 public void removeVertex(T vertLabel) {
-
+  if(vertexLabels.contains(vertLabel))
+  {
     int graphSize = graph.length;
     ArrayList<Integer> vertexEdgeList = new ArrayList<Integer>();
 
@@ -164,6 +165,7 @@ public void removeVertex(T vertLabel) {
     vertexLabels.remove(vertLabel);
     //With temp updated with the removed vertex row and column now we can save the graph
     graph = temp;
+  }
 
 } // end of removeVertex()
 
@@ -289,7 +291,7 @@ public float density()
   int numEdges = numberOfEdges();
   int numVert = numberOfVertices();
   int vertSquared = numVert * numVert;
-  float density = (float)numEdges/vertSquared;
+  float density = (float)numEdges/(float)vertSquared;
   return density;
 }
 

@@ -179,18 +179,16 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
   } // end of neighbours()
 
   public void printVertices(PrintWriter os) {
-    os = new PrintWriter(System.out, true);
     for(T vertex: vertexLabels)
     {
       os.print(vertex + " ");
+      os.flush();
     }
-    os.println();
+
   } // end of printVertices()
 
 
   public void printEdges(PrintWriter os) {
-    os = new PrintWriter(System.out, true);
-
     for(int i = 0; i < graph.length; i++)
     {
       for(int j = 0; j < graph[i].length; j++)
@@ -200,6 +198,7 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
           String vertexOne = vertexLabels.get(i).toString();
           String vertexTwo = vertexLabels.get(j).toString();
           os.println(vertexOne + " " + vertexTwo);
+          os.flush();
         }
       }
     }

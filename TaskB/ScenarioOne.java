@@ -21,8 +21,16 @@ public class ScenarioOne
 
   public void runScenarioOne(ArrayList<String> lines)
   {
-    addEdges(lines);
     addVertices(lines);
+    addEdges(lines);
+  }
+
+  public void runScenarioOneIncreasedDensity(ArrayList<String> lines)
+  {
+    addVertices(lines);
+    addMoreEdges(lines);
+
+
   }
 
   private void addEdges(ArrayList<String> lines)
@@ -32,6 +40,19 @@ public class ScenarioOne
     {
       String[] vertices = line.split(" ");
       matrix.addEdge(vertices[0], vertices[1]);
+    }
+    this.finishTimeAddEdges = System.nanoTime();
+  }
+
+  private void addMoreEdges(ArrayList<String> lines)
+  {
+    this.startTimeAddEdges = System.nanoTime();
+    for(String line: lines)
+    {
+      String[] vertices = line.split(" ");
+      matrix.addEdge(vertices[0], vertices[1]);
+      matrix.addEdge(vertices[1], Integer.valueOf(vertices[1])-1);
+
     }
     this.finishTimeAddEdges = System.nanoTime();
   }

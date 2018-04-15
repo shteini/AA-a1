@@ -97,9 +97,9 @@ public ArrayList<T> neighbours(T vertLabel) {
     {
      if(graph[vertIndex][i] == 1)
      {
-      for(int j = 1; j < graph.length; j++)
+      for(int j = 0; j < graph.length; j++)
       {
-        if(graph[j][i] == 1)
+        if(graph[j][i] == 1 && j != vertIndex)
         {
           T neighbour = vertexLabels.get(j);
           neighbours.add(neighbour);
@@ -236,29 +236,37 @@ public void removeEdge(T srcLabel, T tarLabel) {
 
 
 public void printVertices(PrintWriter os) {
-  os = new PrintWriter(System.out, true);
     for(T vertex: vertexLabels)
     {
       os.print(vertex + " ");
     }
-    os.println();
+    os.flush();
 } // end of printVertices()
 
 
 public void printEdges(PrintWriter os) {
-  os = new PrintWriter(System.out, true);
-
-  for(int i = 0; i < graph[0].length; i++)
+  for(int i = 0; i < graph.length; i++)
   {
-    for(int j = 0; j < graph.length; j++)
+    for(int j = 0; j < graph[0].length; j++)
     {
-      if(graph[j][i] == 1)
+      if(graph[i][j] == 1)
       {
-        os.print(vertexLabels.get(j) + " ");
+        os.print(vertexLabels.get(i) + " ");
+        for(int k = 0; k < graph.length; k++)
+        {
+          if(graph[k][j] == 1 && k != i)
+          {
+            os.print(vertexLabels.get(k));
+            os.println();
+          }
+        }
+
       }
     }
     os.println();
+    os.flush();
   }
+
   // os = new PrintWriter(System.out, true);
 
   // for(int i = 0; i < graph.length; i++)
@@ -269,8 +277,8 @@ public void printEdges(PrintWriter os) {
   //   }
   //   os.println();
   // }
-} // end of printEdges()
-
+ // end of printEdges()
+}
 
 public int shortestPathDistance(T vertLabel1, T vertLabel2) {
  if(vertexLabels.contains(vertLabel1) && vertexLabels.contains(vertLabel2))
