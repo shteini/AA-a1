@@ -3,7 +3,6 @@ import java.util.*;
 
 public class DataGenerator
 {
-
   public static void main(String[] args)
   {
     int MAX_NUMBER_LINES = 88234;

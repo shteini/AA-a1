@@ -62,4 +62,9 @@ public class ScenarioOne
   {
     matrix.printData();
   }
+
+  private getTotalElapsedTimeAddEdges()
+  {
+  	return finishTime - startTime;
+  }
 }
