@@ -117,10 +117,6 @@ public class AdjMatrix <T extends Object> implements FriendshipGraph<T>
       //With temp updated with the removed vertex row and column now we can save the graph
       graph = temp;
     }
-    else
-    {
-      System.out.println("Vertex Does Not Exist");
-    }
   } // end of removeVertex()
 
   public void addEdge(T srcLabel, T tarLabel) {

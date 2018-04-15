@@ -156,7 +156,7 @@ public class DataGenerator
       // Adjacency Matrix
       threeAdjMat.runScenarioThree(lines);
       System.out.printf("\t\n---SUBSET %d---\n",i);
-      System.out.println("\tType of Matrix: IncidenceMatrix");
+      System.out.println("\tType of Matrix: Adjacency Matrix");
       System.out.println("\tRemove vertex Time taken: " + threeAdjMat.getTotalElapsedTimeRemoveVertex()+"ns.");
       System.out.println("\tRemove edge Time taken: " + threeAdjMat.getTotalElapsedTimeRemoveEdge()+"ns.");
       averageRemoveVerticesAdjMat += threeAdjMat.getTotalElapsedTimeRemoveVertex();
